@@ -1,8 +1,10 @@
 import {
     createUserWithEmailAndPassword,
+    onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth'
+import type { User } from 'firebase/auth'
 import { auth } from './auth'
 
 export function registerWithEmail(email: string, password: string) {
@@ -15,4 +17,8 @@ export function loginWithEmail(email: string, password: string) {
 
 export function logout() {
     return signOut(auth)
+}
+
+export function subscribeToAuthChanges(callback: (user: User | null) => void) {
+    return onAuthStateChanged(auth, callback)
 }
