@@ -1,3 +1,19 @@
+:root {
+  --color-fondo: #0b1f2e;
+  --color-superficie: #12303f;
+  --color-borde: #24495b;
+  --color-texto: #e6f2f7;
+  --color-texto-suave: #9cc0cf;
+  --color-acento: #4fc3d9;
+  --color-sobre-acento: #0b1f2e;
+  --color-error: #ff9b9b;
+
+  --fuente-titulos: 'Cormorant Garamond', Garamond, Georgia, serif;
+  --fuente-texto: 'EB Garamond', Garamond, Georgia, serif;
+
+  color-scheme: dark;
+}
+
 *,
 *::before,
 *::after {
@@ -6,5 +22,126 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+a {
+  color: var(--color-acento);
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* Encabezado y navegación */
+header {
+  padding: 24px 16px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-texto-suave);
+}
+
+/* Tarjeta de formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(100% - 32px, 420px);
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+}
+
+form h2 {
+  margin: 0;
+  font-size: 34px;
+}
+
+/* Campos */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  color: var(--color-texto-suave);
+  font-size: 16px;
+}
+
+.form-field input {
+  height: 48px;
+  padding: 0 14px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+}
+
+.form-field input:focus {
+  border-color: var(--color-acento);
+}
+
+.form-field input[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.form-error {
+  margin: 0;
+  color: var(--color-error);
+  font-size: 16px;
+}
+
+/* Botón del formulario */
+form button {
+  height: 48px;
+  background: var(--color-acento);
+  color: var(--color-sobre-acento);
+  font-weight: 500;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+form button:hover {
+  filter: brightness(1.1);
+}
+
+form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
