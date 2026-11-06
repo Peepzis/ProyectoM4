@@ -1,19 +1,30 @@
+import { useState } from 'react'
 import { useAuth } from '../features/auth/useAuth'
 import { TodoForm } from '../features/tasks/TodoForm'
 import { TodoList } from '../features/tasks/TodoList'
 import { useTasks } from '../features/tasks/useTasks'
 import { logout } from '../services/firebase/authService'
-import { createTask } from '../services/firebase/taskService'
+import { createTask, setTaskCompleted } from '../services/firebase/taskService'
 
 export function Tasks() {
     const { user } = useAuth()
     const { tasks, loading, error } = useTasks()
+    const [actionError, setActionError] = useState<string | null>(null)
 
     async function handleCreate(title: string, description: string) {
         if (!user) {
             throw new Error('No hay sesión iniciada')
         }
         await createTask({ title, description, userId: user.uid })
+    }
+
+    async function handleToggle(taskId: string, completed: boolean) {
+        setActionError(null)
+        try {
+            await setTaskCompleted(taskId, completed)
+        } catch {
+            setActionError('No se pudo actualizar la tarea. Probá de nuevo.')
+        }
     }
 
     return (
@@ -38,7 +49,12 @@ export function Tasks() {
                     {error}
                 </p>
             )}
-            {!loading && !error && <TodoList tasks={tasks} />}
+            {actionError && (
+                <p className="task-error" role="alert">
+                    {actionError}
+                </p>
+            )}
+            {!loading && !error && <TodoList tasks={tasks} onToggle={handleToggle} />}
         </section>
     )
 }

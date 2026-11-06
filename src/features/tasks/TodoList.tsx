@@ -3,9 +3,10 @@ import './tasks.css'
 
 interface TodoListProps {
     tasks: Task[]
+    onToggle: (taskId: string, completed: boolean) => void
 }
 
-export function TodoList({ tasks }: TodoListProps) {
+export function TodoList({ tasks, onToggle }: TodoListProps) {
     if (tasks.length === 0) {
         return (
             <p className="task-empty">
@@ -25,9 +26,14 @@ export function TodoList({ tasks }: TodoListProps) {
                     {task.description && (
                         <p className="task-description">{task.description}</p>
                     )}
-                    <span className="task-status">
+                    <label className="task-status task-toggle">
+                        <input
+                            type="checkbox"
+                            checked={task.completed}
+                            onChange={() => onToggle(task.id, !task.completed)}
+                        />
                         {task.completed ? 'Completada' : 'Pendiente'}
-                    </span>
+                    </label>
                 </li>
             ))}
         </ul>

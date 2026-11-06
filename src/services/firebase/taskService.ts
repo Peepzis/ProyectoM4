@@ -1,9 +1,11 @@
 import {
     addDoc,
     collection,
+    doc,
     onSnapshot,
     query,
     serverTimestamp,
+    updateDoc,
     where,
 } from 'firebase/firestore'
 import type { Unsubscribe } from 'firebase/firestore'
@@ -29,6 +31,16 @@ export async function createTask({
         completed: false,
         userId,
         createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+    })
+}
+
+export async function setTaskCompleted(
+    taskId: string,
+    completed: boolean,
+): Promise<void> {
+    await updateDoc(doc(db, 'tasks', taskId), {
+        completed,
         updatedAt: serverTimestamp(),
     })
 }
