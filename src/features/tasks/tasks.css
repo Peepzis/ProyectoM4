@@ -102,3 +102,25 @@
     accent-color: var(--color-acento);
     cursor: pointer;
 }
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.task-delete {
+    height: 36px;
+    padding: 0 14px;
+    background: transparent;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.task-delete:hover {
+    background: var(--color-fondo);
+}

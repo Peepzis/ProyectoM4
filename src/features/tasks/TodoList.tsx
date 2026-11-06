@@ -4,9 +4,10 @@ import './tasks.css'
 interface TodoListProps {
     tasks: Task[]
     onToggle: (taskId: string, completed: boolean) => void
+    onDelete: (taskId: string) => void
 }
 
-export function TodoList({ tasks, onToggle }: TodoListProps) {
+export function TodoList({ tasks, onToggle, onDelete }: TodoListProps) {
     if (tasks.length === 0) {
         return (
             <p className="task-empty">
@@ -26,14 +27,24 @@ export function TodoList({ tasks, onToggle }: TodoListProps) {
                     {task.description && (
                         <p className="task-description">{task.description}</p>
                     )}
-                    <label className="task-status task-toggle">
-                        <input
-                            type="checkbox"
-                            checked={task.completed}
-                            onChange={() => onToggle(task.id, !task.completed)}
-                        />
-                        {task.completed ? 'Completada' : 'Pendiente'}
-                    </label>
+                    <div className="task-actions">
+                        <label className="task-status task-toggle">
+                            <input
+                                type="checkbox"
+                                checked={task.completed}
+                                onChange={() => onToggle(task.id, !task.completed)}
+                            />
+                            {task.completed ? 'Completada' : 'Pendiente'}
+                        </label>
+                        <button
+                            type="button"
+                            className="task-delete"
+                            aria-label={`Borrar la tarea ${task.title}`}
+                            onClick={() => onDelete(task.id)}
+                        >
+                            Borrar
+                        </button>
+                    </div>
                 </li>
             ))}
         </ul>

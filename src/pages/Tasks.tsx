@@ -4,7 +4,11 @@ import { TodoForm } from '../features/tasks/TodoForm'
 import { TodoList } from '../features/tasks/TodoList'
 import { useTasks } from '../features/tasks/useTasks'
 import { logout } from '../services/firebase/authService'
-import { createTask, setTaskCompleted } from '../services/firebase/taskService'
+import {
+    createTask,
+    deleteTask,
+    setTaskCompleted,
+} from '../services/firebase/taskService'
 
 export function Tasks() {
     const { user } = useAuth()
@@ -24,6 +28,18 @@ export function Tasks() {
             await setTaskCompleted(taskId, completed)
         } catch {
             setActionError('No se pudo actualizar la tarea. Probá de nuevo.')
+        }
+    }
+
+    async function handleDelete(taskId: string) {
+        if (!window.confirm('¿Seguro que querés borrar esta tarea?')) {
+            return
+        }
+        setActionError(null)
+        try {
+            await deleteTask(taskId)
+        } catch {
+            setActionError('No se pudo borrar la tarea. Probá de nuevo.')
         }
     }
 
@@ -54,7 +70,13 @@ export function Tasks() {
                     {actionError}
                 </p>
             )}
-            {!loading && !error && <TodoList tasks={tasks} onToggle={handleToggle} />}
+            {!loading && !error && (
+                <TodoList
+                    tasks={tasks}
+                    onToggle={handleToggle}
+                    onDelete={handleDelete}
+                />
+            )}
         </section>
     )
 }

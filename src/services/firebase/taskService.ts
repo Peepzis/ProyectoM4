@@ -1,6 +1,7 @@
 import {
     addDoc,
     collection,
+    deleteDoc,
     doc,
     onSnapshot,
     query,
@@ -43,6 +44,10 @@ export async function setTaskCompleted(
         completed,
         updatedAt: serverTimestamp(),
     })
+}
+
+export async function deleteTask(taskId: string): Promise<void> {
+    await deleteDoc(doc(db, 'tasks', taskId))
 }
 
 export function subscribeToUserTasks(
