@@ -36,6 +36,18 @@ export async function createTask({
     })
 }
 
+export async function updateTask(
+    taskId: string,
+    title: string,
+    description: string,
+): Promise<void> {
+    await updateDoc(doc(db, 'tasks', taskId), {
+        title: title.trim(),
+        description: description.trim(),
+        updatedAt: serverTimestamp(),
+    })
+}
+
 export async function setTaskCompleted(
     taskId: string,
     completed: boolean,

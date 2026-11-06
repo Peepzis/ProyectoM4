@@ -8,6 +8,7 @@ import {
     createTask,
     deleteTask,
     setTaskCompleted,
+    updateTask,
 } from '../services/firebase/taskService'
 
 export function Tasks() {
@@ -20,6 +21,14 @@ export function Tasks() {
             throw new Error('No hay sesión iniciada')
         }
         await createTask({ title, description, userId: user.uid })
+    }
+
+    async function handleUpdate(
+        taskId: string,
+        title: string,
+        description: string,
+    ) {
+        await updateTask(taskId, title, description)
     }
 
     async function handleToggle(taskId: string, completed: boolean) {
@@ -75,6 +84,7 @@ export function Tasks() {
                     tasks={tasks}
                     onToggle={handleToggle}
                     onDelete={handleDelete}
+                    onUpdate={handleUpdate}
                 />
             )}
         </section>

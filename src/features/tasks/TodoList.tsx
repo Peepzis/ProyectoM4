@@ -1,13 +1,15 @@
 import type { Task } from '../../types/task'
+import { TaskItem } from './TaskItem'
 import './tasks.css'
 
 interface TodoListProps {
     tasks: Task[]
     onToggle: (taskId: string, completed: boolean) => void
     onDelete: (taskId: string) => void
+    onUpdate: (taskId: string, title: string, description: string) => Promise<void>
 }
 
-export function TodoList({ tasks, onToggle, onDelete }: TodoListProps) {
+export function TodoList({ tasks, onToggle, onDelete, onUpdate }: TodoListProps) {
     if (tasks.length === 0) {
         return (
             <p className="task-empty">
@@ -19,33 +21,13 @@ export function TodoList({ tasks, onToggle, onDelete }: TodoListProps) {
     return (
         <ul className="task-list">
             {tasks.map((task) => (
-                <li
+                <TaskItem
                     key={task.id}
-                    className={task.completed ? 'task-item task-item--done' : 'task-item'}
-                >
-                    <h3 className="task-title">{task.title}</h3>
-                    {task.description && (
-                        <p className="task-description">{task.description}</p>
-                    )}
-                    <div className="task-actions">
-                        <label className="task-status task-toggle">
-                            <input
-                                type="checkbox"
-                                checked={task.completed}
-                                onChange={() => onToggle(task.id, !task.completed)}
-                            />
-                            {task.completed ? 'Completada' : 'Pendiente'}
-                        </label>
-                        <button
-                            type="button"
-                            className="task-delete"
-                            aria-label={`Borrar la tarea ${task.title}`}
-                            onClick={() => onDelete(task.id)}
-                        >
-                            Borrar
-                        </button>
-                    </div>
-                </li>
+                    task={task}
+                    onToggle={onToggle}
+                    onDelete={onDelete}
+                    onUpdate={onUpdate}
+                />
             ))}
         </ul>
     )
