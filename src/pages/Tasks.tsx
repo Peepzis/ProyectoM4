@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../features/auth/useAuth'
 import { TodoForm } from '../features/tasks/TodoForm'
 import { TodoList } from '../features/tasks/TodoList'
+import { useSendSummary } from '../features/tasks/useSendSummary'
 import { useTasks } from '../features/tasks/useTasks'
 import { logout } from '../services/firebase/authService'
 import {
@@ -14,6 +15,7 @@ import {
 export function Tasks() {
     const { user } = useAuth()
     const { tasks, loading, error } = useTasks()
+    const { status: summaryStatus, sendSummary } = useSendSummary()
     const [actionError, setActionError] = useState<string | null>(null)
 
     async function handleCreate(title: string, description: string) {
@@ -65,6 +67,31 @@ export function Tasks() {
                     </button>
                 )}
             </div>
+
+            {user && (
+                <div>
+                    <button
+                        type="button"
+                        onClick={sendSummary}
+                        disabled={summaryStatus === 'sending'}
+                    >
+                        {summaryStatus === 'sending'
+                            ? 'Enviando...'
+                            : 'Enviar resumen por email'}
+                    </button>
+                    {summaryStatus === 'success' && (
+                        <p className="task-empty" role="status">
+                            Resumen enviado a {user.email}. Revisá también tu
+                            carpeta de correo no deseado.
+                        </p>
+                    )}
+                    {summaryStatus === 'error' && (
+                        <p className="task-error" role="alert">
+                            No se pudo enviar el resumen. Probá de nuevo.
+                        </p>
+                    )}
+                </div>
+            )}
 
             <TodoForm onSubmit={handleCreate} />
 
