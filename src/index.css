@@ -1,15 +1,39 @@
-:root {
-  --color-fondo: #0b1f2e;
-  --color-superficie: #12303f;
-  --color-borde: #24495b;
-  --color-texto: #e6f2f7;
-  --color-texto-suave: #9cc0cf;
-  --color-acento: #4fc3d9;
-  --color-sobre-acento: #0b1f2e;
-  --color-error: #ff9b9b;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
 
-  --fuente-titulos: 'Cormorant Garamond', Garamond, Georgia, serif;
-  --fuente-texto: 'EB Garamond', Garamond, Georgia, serif;
+:root {
+  /* Paleta oficial oceánica */
+  --color-deep-ocean: #0D2B45;
+  --color-ocean-teal: #1E5A6E;
+  --color-seafoam: #6BA7A0;
+  --color-sandy-beige: #DCC8AA;
+  --color-light-sky: #B7D4E6;
+
+  /* Variables semánticas y variaciones armónicas */
+  --color-fondo: var(--color-deep-ocean);
+  --color-superficie: rgba(18, 52, 75, 0.82);
+  --color-superficie-profunda: rgba(9, 29, 47, 0.88);
+  --color-borde: rgba(183, 212, 230, 0.22);
+  --color-borde-hover: var(--color-seafoam);
+  --color-texto: #F4F8FA;
+  --color-texto-suave: var(--color-light-sky);
+  --color-acento: var(--color-ocean-teal);
+  --color-sobre-acento: #FFFFFF;
+  --color-error: #E57373;
+
+  /* Tipografía */
+  --fuente-principal: 'Playfair Display', Georgia, serif;
+  --fuente-titulos: 'Playfair Display', Georgia, serif;
+  --fuente-texto: 'Playfair Display', Georgia, serif;
+
+  /* Sombras y bordes modernos */
+  --radio-sm: 8px;
+  --radio-md: 14px;
+  --radio-lg: 20px;
+  --radio-pill: 50px;
+  --sombra-card: 0 18px 42px rgba(4, 14, 23, 0.62), 0 0 1px rgba(183, 212, 230, 0.3);
+  --sombra-hover: 0 22px 50px rgba(4, 14, 23, 0.72), 0 0 18px rgba(107, 167, 160, 0.22);
+  --sombra-boton: 0 4px 16px rgba(30, 90, 110, 0.45);
+  --sombra-boton-hover: 0 6px 22px rgba(107, 167, 160, 0.4);
 
   color-scheme: dark;
 }
@@ -20,128 +44,347 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--color-fondo);
+  position: relative;
+  background-color: var(--color-deep-ocean);
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(107, 167, 160, 0.22), transparent 65%),
+    radial-gradient(circle 500px at 90% 20%, rgba(30, 90, 110, 0.28), transparent 65%),
+    radial-gradient(circle 650px at 10% 80%, rgba(107, 167, 160, 0.14), transparent 70%),
+    linear-gradient(180deg, #071724 0%, #0D2B45 35%, #081B2C 100%);
+  background-attachment: fixed;
   color: var(--color-texto);
-  font-family: var(--fuente-texto);
-  font-size: 18px;
-  line-height: 1.5;
+  font-family: var(--fuente-principal);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Scrollbar estilizada estilo marino */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #071724;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ocean-teal);
+  border-radius: var(--radio-pill);
+  border: 2px solid #071724;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-seafoam);
 }
 
 h1,
 h2,
-h3 {
-  font-family: var(--fuente-titulos);
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--fuente-principal);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
 }
 
 a {
-  color: var(--color-acento);
+  color: var(--color-light-sky);
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+a:hover {
+  color: var(--color-seafoam);
 }
 
 button,
 input,
-textarea {
-  font-family: inherit;
+textarea,
+select {
+  font-family: var(--fuente-principal);
   font-size: inherit;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-acento);
-  outline-offset: 2px;
+  outline: 2px solid var(--color-seafoam);
+  outline-offset: 3px;
 }
 
 /* Encabezado y navegación */
 header {
-  padding: 24px 16px 0;
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 32px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  position: relative;
+  border-bottom: 1px solid rgba(183, 212, 230, 0.12);
+}
+
+header::before {
+  content: 'TODOAPI • OCEAN EDITION';
+  position: absolute;
+  top: 14px;
+  left: 32px;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-seafoam);
+  background: rgba(30, 90, 110, 0.35);
+  border: 1px solid rgba(107, 167, 160, 0.4);
+  padding: 4px 14px;
+  border-radius: var(--radio-pill);
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(4, 14, 23, 0.35);
 }
 
 header h1 {
-  margin: 0 0 8px;
-  font-size: 36px;
+  margin: 22px 0 0;
+  font-size: clamp(26px, 3.5vw, 38px);
+  color: #FFFFFF;
+  text-shadow: 0 2px 20px rgba(107, 167, 160, 0.3);
+  letter-spacing: 0.02em;
+  text-align: left;
+  line-height: 1.2;
 }
 
 nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  color: var(--color-texto-suave);
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  color: rgba(183, 212, 230, 0.25);
+  font-size: 0; /* Oculta los separadores planos '|' */
+  margin: 0;
+  transition: margin-right 0.2s ease;
 }
 
-/* Tarjeta de formulario */
+nav a {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-light-sky);
+  background: rgba(18, 52, 75, 0.65);
+  border: 1px solid rgba(183, 212, 230, 0.24);
+  padding: 8px 20px;
+  border-radius: var(--radio-pill);
+  box-shadow: 0 4px 12px rgba(4, 14, 23, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover {
+  color: #FFFFFF;
+  background: var(--color-ocean-teal);
+  border-color: var(--color-seafoam);
+  box-shadow: 0 6px 18px rgba(107, 167, 160, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Con sesión iniciada: ocultar "Iniciar sesión" y "Crear cuenta", dejando solo "Mis tareas" */
+body:has(.logout-button) nav a[href$='/login'],
+body:has(.logout-button) nav a[href$='/register'] {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  body:has(.logout-button) nav {
+    margin-right: 154px;
+  }
+}
+
+/* Tarjeta de formulario general (Login, Register) */
 form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  width: min(100% - 32px, 420px);
-  margin: 24px auto;
-  padding: 24px;
-  background: var(--color-superficie);
+  gap: 20px;
+  width: min(100% - 32px, 480px);
+  margin: 32px auto;
+  padding: 34px 30px;
+  background: linear-gradient(165deg, rgba(18, 52, 75, 0.88) 0%, rgba(13, 43, 69, 0.96) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--color-borde);
-  border-radius: 12px;
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Franja ornamental superior con la paleta de colores oceánica */
+form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--color-ocean-teal) 0%,
+    var(--color-seafoam) 35%,
+    var(--color-sandy-beige) 70%,
+    var(--color-light-sky) 100%
+  );
 }
 
 form h2 {
   margin: 0;
-  font-size: 34px;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-sandy-beige);
+  letter-spacing: 0.01em;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(183, 212, 230, 0.16);
 }
 
-/* Campos */
+/* Campos de formulario */
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .form-field label {
-  color: var(--color-texto-suave);
-  font-size: 16px;
+  color: var(--color-light-sky);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .form-field input {
   height: 48px;
-  padding: 0 14px;
-  background: var(--color-fondo);
+  padding: 0 16px;
+  background: rgba(8, 27, 44, 0.78);
   color: var(--color-texto);
-  border: 1px solid var(--color-borde);
-  border-radius: 8px;
+  border: 1px solid rgba(183, 212, 230, 0.24);
+  border-radius: var(--radio-md);
+  font-size: 16px;
+  font-family: var(--fuente-principal);
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .form-field input:focus {
-  border-color: var(--color-acento);
+  background: rgba(13, 43, 69, 0.95);
+  border-color: var(--color-seafoam);
+  box-shadow: 0 0 0 3px rgba(107, 167, 160, 0.25);
+  outline: none;
 }
 
 .form-field input[aria-invalid='true'] {
   border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(229, 115, 115, 0.2);
 }
 
 .form-error {
   margin: 0;
-  color: var(--color-error);
+  color: #FFAAAA;
+  background: rgba(229, 115, 115, 0.12);
+  border-left: 3px solid var(--color-error);
+  padding: 10px 14px;
+  border-radius: var(--radio-sm);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Botones principales de formulario */
+form button[type='submit'],
+form > button {
+  height: 50px;
+  margin-top: 6px;
+  background: linear-gradient(135deg, var(--color-ocean-teal) 0%, #154556 100%);
+  color: #FFFFFF;
+  font-family: var(--fuente-principal);
   font-size: 16px;
-}
-
-/* Botón del formulario */
-form button {
-  height: 48px;
-  background: var(--color-acento);
-  color: var(--color-sobre-acento);
-  font-weight: 500;
-  border: 0;
-  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--color-seafoam);
+  border-radius: var(--radio-pill);
   cursor: pointer;
+  box-shadow: var(--sombra-boton);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-form button:hover {
-  filter: brightness(1.1);
+form button[type='submit']:hover:not(:disabled),
+form > button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #256e86 0%, var(--color-ocean-teal) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-boton-hover);
+  border-color: var(--color-light-sky);
+}
+
+form button[type='submit']:active:not(:disabled),
+form > button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 form button:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsividad para móviles y tablets */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 20px 16px;
+    gap: 14px;
+  }
+
+  header::before {
+    position: static;
+    margin-bottom: 2px;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 26px;
+  }
+
+  nav {
+    justify-content: flex-start;
+    width: 100%;
+    gap: 8px;
+  }
+
+  nav a {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+
+  form {
+    width: min(100% - 24px, 480px);
+    margin: 20px auto;
+    padding: 26px 20px;
+  }
+
+  form h2 {
+    font-size: 26px;
+  }
 }
