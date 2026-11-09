@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { Home } from '../pages/Home'
 import { Login } from '../pages/Login'
 import { Register } from '../pages/Register'
 import { Tasks } from '../pages/Tasks'
@@ -8,14 +9,13 @@ import { PublicRoute } from './PublicRoute'
 export function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<Navigate to="/tasks" replace />} />
-
             <Route element={<PublicRoute />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Route>
 
             <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Home />} />
                 <Route path="/tasks" element={<Tasks />} />
             </Route>
 

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { FormField } from '../components/FormField'
 import { loginWithEmail } from '../services/firebase/authService'
 import { getAuthErrorMessage } from '../utils/authErrors'
 import { validateEmail, validatePassword } from '../utils/validators'
+import './auth.css'
 
 interface FormErrors {
     email: string | null
@@ -76,6 +78,10 @@ export function Login() {
             <button type="submit" disabled={submitting}>
                 {submitting ? 'Ingresando...' : 'Iniciar sesión'}
             </button>
+
+            <Link className="auth-link" to="/register">
+                Crear cuenta
+            </Link>
         </form>
     )
 }

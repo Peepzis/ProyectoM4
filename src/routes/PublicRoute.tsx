@@ -9,7 +9,7 @@ export function PublicRoute() {
     }
 
     if (user) {
-        return <Navigate to="/tasks" replace />
+        return <Navigate to="/" replace />
     }
 
     return <Outlet />

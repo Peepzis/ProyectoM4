@@ -1,0 +1,17 @@
+.auth-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  color: var(--color-light-sky);
+  font-size: 15px;
+  font-weight: 500;
+  background: rgba(18, 52, 75, 0.65);
+  border: 1px solid rgba(183, 212, 230, 0.24);
+  border-radius: var(--radio-pill);
+}
+
+.auth-link:hover {
+  color: #FFFFFF;
+  border-color: var(--color-seafoam);
+}

@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom'
+import { useAuth } from './features/auth/useAuth'
 import { AppRoutes } from './routes/AppRoutes'
 
 function App() {
+  const { user } = useAuth()
+
   return (
-    <>
+    <div className="app-shell">
       <header>
         <h1>Gestor Estratégico de Tareas</h1>
-        <nav>
-          <Link to="/login">Iniciar sesión</Link>
-          {' | '}
-          <Link to="/register">Crear cuenta</Link>
-          {' | '}
-          <Link to="/tasks">Mis tareas</Link>
-        </nav>
+        {user && (
+          <nav>
+            <Link to="/">Inicio</Link>
+            {' | '}
+            <Link to="/tasks">Mis tareas</Link>
+          </nav>
+        )}
       </header>
-      <AppRoutes />
-    </>
+      <main className="app-main">
+        <AppRoutes />
+      </main>
+      <footer className="app-footer">
+        <span>TodoApi • Ocean Edition</span>
+      </footer>
+    </div>
   )
 }
 
