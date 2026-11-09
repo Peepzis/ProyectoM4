@@ -4,18 +4,21 @@ import './tasks.css'
 
 interface TodoListProps {
     tasks: Task[]
+    emptyMessage?: string
     onToggle: (taskId: string, completed: boolean) => void
     onDelete: (taskId: string) => void
     onUpdate: (taskId: string, title: string, description: string) => Promise<void>
 }
 
-export function TodoList({ tasks, onToggle, onDelete, onUpdate }: TodoListProps) {
+export function TodoList({
+    tasks,
+    emptyMessage = 'Todavía no tenés tareas. Creá la primera con el formulario.',
+    onToggle,
+    onDelete,
+    onUpdate,
+}: TodoListProps) {
     if (tasks.length === 0) {
-        return (
-            <p className="task-empty">
-                Todavía no tenés tareas. Creá la primera con el formulario.
-            </p>
-        )
+        return <p className="task-empty">{emptyMessage}</p>
     }
 
     return (

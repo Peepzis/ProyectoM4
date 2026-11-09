@@ -1,16 +1,15 @@
 import { useState } from 'react'
+import { SessionHeader } from '../features/auth/SessionHeader'
 import { useAuth } from '../features/auth/useAuth'
-import { TodoForm } from '../features/tasks/TodoForm'
-import { TodoList } from '../features/tasks/TodoList'
+import { TaskPanel } from '../features/tasks/TaskPanel'
 import { useSendSummary } from '../features/tasks/useSendSummary'
 import { useTasks } from '../features/tasks/useTasks'
-import { logout } from '../services/firebase/authService'
 import {
-    createTask,
     deleteTask,
     setTaskCompleted,
     updateTask,
 } from '../services/firebase/taskService'
+import './tasks-page.css'
 
 export function Tasks() {
     const { user } = useAuth()
@@ -18,12 +17,8 @@ export function Tasks() {
     const { status: summaryStatus, sendSummary } = useSendSummary()
     const [actionError, setActionError] = useState<string | null>(null)
 
-    async function handleCreate(title: string, description: string) {
-        if (!user) {
-            throw new Error('No hay sesión iniciada')
-        }
-        await createTask({ title, description, userId: user.uid })
-    }
+    const pendingTasks = tasks.filter((task) => !task.completed)
+    const completedTasks = tasks.filter((task) => task.completed)
 
     async function handleUpdate(
         taskId: string,
@@ -55,18 +50,8 @@ export function Tasks() {
     }
 
     return (
-        <section>
-            <div className="tasks-header">
-                <h2>Mis tareas</h2>
-                <p>
-                    {user ? `Sesión iniciada: ${user.email}` : 'No hay sesión iniciada'}
-                </p>
-                {user && (
-                    <button className="logout-button" onClick={logout}>
-                        Cerrar sesión
-                    </button>
-                )}
-            </div>
+        <section className="tasks-page">
+            <SessionHeader title="Mis tareas" />
 
             {user && (
                 <div>
@@ -93,8 +78,6 @@ export function Tasks() {
                 </div>
             )}
 
-            <TodoForm onSubmit={handleCreate} />
-
             {loading && <p className="task-empty">Cargando tareas...</p>}
             {error && (
                 <p className="task-error" role="alert">
@@ -107,12 +90,24 @@ export function Tasks() {
                 </p>
             )}
             {!loading && !error && (
-                <TodoList
-                    tasks={tasks}
-                    onToggle={handleToggle}
-                    onDelete={handleDelete}
-                    onUpdate={handleUpdate}
-                />
+                <>
+                    <TaskPanel
+                        title="Pendientes"
+                        tasks={pendingTasks}
+                        emptyMessage="No tenés tareas pendientes."
+                        onToggle={handleToggle}
+                        onDelete={handleDelete}
+                        onUpdate={handleUpdate}
+                    />
+                    <TaskPanel
+                        title="Finalizadas"
+                        tasks={completedTasks}
+                        emptyMessage="Todavía no finalizaste ninguna tarea."
+                        onToggle={handleToggle}
+                        onDelete={handleDelete}
+                        onUpdate={handleUpdate}
+                    />
+                </>
             )}
         </section>
     )
