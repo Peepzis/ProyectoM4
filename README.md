@@ -6,6 +6,10 @@ Aplicación web de una sola página (SPA) desarrollada para **MateCode** como Pr
 
 > El envío del resumen por email tiene una limitación en la demo: ver [Limitaciones conocidas](#limitaciones-conocidas).
 
+## Demostración del resumen por email
+
+![Envío del resumen por email y llegada del correo](docs/demo-resumen.gif)
+
 ## Funcionalidades
 
 - Registro, inicio y cierre de sesión con email y contraseña.
@@ -142,7 +146,7 @@ El repositorio está conectado a Vercel: cada push a `main` genera un deploy de 
 
 ## Limitaciones conocidas
 
-- **AWS SES está en modo sandbox.** Solo se envían correos a direcciones verificadas. Con cualquier otra cuenta, el botón de resumen muestra un error. Es una decisión consciente para un proyecto académico.
+- **AWS SES está en modo sandbox.** Solo se envían correos a direcciones verificadas. Con cualquier otra cuenta, el botón de resumen muestra un error. Es una decisión consciente para un proyecto académico, y la [demostración](#demostración-del-resumen-por-email) muestra el envío funcionando con una dirección verificada.
 - **Los correos pueden llegar a Correo no deseado**, porque salen por un dominio de `amazonses.com`. La solución sería verificar un dominio propio en SES.
 
 ## Dependencias y avisos conocidos
