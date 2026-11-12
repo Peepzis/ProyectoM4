@@ -61,8 +61,8 @@ La consigna sugiere una carpeta `functions/`, pero la función está en `api/` p
 Requisitos: Node.js 24 y npm.
 
 ```bash
-git clone https://github.com/Peepzis/ProyectoM4.git
-cd ProyectoM4
+git clone https://github.com/Peepzis/ProyectoM4-valentinHeyde.git
+cd ProyectoM4-valentinHeyde
 npm install
 cp .env.example .env
 ```
